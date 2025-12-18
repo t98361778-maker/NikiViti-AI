@@ -7,8 +7,8 @@
     <title>NikiViti Solaris Spectrum OS</title>
     
     <!-- 
-      SYSTEM: NikiViti Solaris Spectrum 2.2
-      FIX: GitHub Pages Deployment Stability
+      SYSTEM: NikiViti Solaris Spectrum 2.3
+      STABILITY: High (Optimized for GitHub Pages)
     -->
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -69,7 +69,6 @@
             to { transform: translateY(-500px); }
         }
 
-        /* --- MAIN LAYOUT --- */
         #root {
             width: 100%;
             height: 100vh;
@@ -79,7 +78,6 @@
             z-index: 1;
         }
 
-        /* --- BOOT SCREEN --- */
         #boot-screen {
             position: fixed;
             inset: 0;
@@ -112,9 +110,8 @@
 
         @keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
 
-        /* UI Enhancements */
         .glass-panel {
-            background: rgba(8, 15, 15, 0.8);
+            background: rgba(8, 15, 15, 0.85);
             backdrop-filter: blur(40px);
             -webkit-backdrop-filter: blur(40px);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -130,12 +127,13 @@
 
         pre {
             background: rgba(0,0,0,0.5) !important;
-            padding: 1rem;
-            border-radius: 0.75rem;
+            padding: 1.2rem;
+            border-radius: 1rem;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             overflow-x: auto;
             border: 1px solid rgba(255,255,255,0.05);
+            margin: 1rem 0;
         }
         code { color: #5eead4; }
     </style>
@@ -151,11 +149,6 @@
   }
 }
 </script>
-    
-    <!-- FIX: Initialize process.env before React loads -->
-    <script>
-        window.process = { env: { API_KEY: "" } };
-    </script>
 <link rel="stylesheet" href="/index.css">
 </head>
 <body>
@@ -165,10 +158,10 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
         </svg>
         <div class="boot-text">
-            <p id="t1">> Initializing Solaris Spectrum...</p>
-            <p id="t2" class="opacity-0">> Loading NikiViti AI Core v2.2...</p>
-            <p id="t3" class="opacity-0">> Mapping Quantum Nodes...</p>
-            <p id="t4" class="opacity-0">> UPLINK READY <span class="cursor"></span></p>
+            <p id="t1">> Initializing Solaris Spectrum 2.3...</p>
+            <p id="t2" class="opacity-0">> Authenticating Neural Link...</p>
+            <p id="t3" class="opacity-0">> Mapping Memory Grids...</p>
+            <p id="t4" class="opacity-0">> SYSTEM READY <span class="cursor"></span></p>
         </div>
     </div>
 
@@ -190,7 +183,7 @@
     </script>
 
     <!-- Main Entry point -->
-    <script type="text/babel" data-type="module" data-presets="typescript,react" src="./index.tsx"></script>
+    <script type="text/babel" data-type="module" data-presets="typescript,react" src="index.tsx"></script>
 <script type="module" src="/index.tsx"></script>
 </body>
 </html>
