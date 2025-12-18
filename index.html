@@ -7,9 +7,8 @@
     <title>NikiViti Solaris Spectrum OS</title>
     
     <!-- 
-      SYSTEM ARCHITECTURE: NikiViti Solaris Spectrum
-      VERSION: 2.1.0 "Quantum Emerald"
-      STABILITY: High-Performance Static Build
+      SYSTEM: NikiViti Solaris Spectrum 2.2
+      FIX: GitHub Pages Deployment Stability
     -->
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -18,9 +17,8 @@
     
     <style>
         :root {
-            --emerald-glow: rgba(16, 185, 129, 0.4);
-            --teal-glow: rgba(20, 184, 166, 0.4);
             --bg-void: #010409;
+            --accent: #10b981;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -42,17 +40,15 @@
             height: 200%;
             z-index: -10;
             background: 
-                radial-gradient(circle at 15% 20%, rgba(13, 148, 136, 0.25) 0%, transparent 45%),
-                radial-gradient(circle at 85% 30%, rgba(5, 150, 105, 0.2) 0%, transparent 45%),
-                radial-gradient(circle at 50% 80%, rgba(6, 182, 212, 0.25) 0%, transparent 45%),
+                radial-gradient(circle at 15% 20%, rgba(13, 148, 136, 0.2) 0%, transparent 45%),
+                radial-gradient(circle at 85% 35%, rgba(5, 150, 105, 0.15) 0%, transparent 45%),
                 radial-gradient(circle at 50% 50%, rgba(2, 6, 23, 1) 0%, #000 100%);
-            animation: nebulaSpin 160s linear infinite;
+            animation: nebulaSpin 180s linear infinite;
         }
 
         @keyframes nebulaSpin {
-            from { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(180deg) scale(1.05); }
-            to { transform: rotate(360deg) scale(1); }
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .star-field {
@@ -60,58 +56,31 @@
             inset: 0;
             z-index: -5;
             background-image: 
-                radial-gradient(1.2px 1.2px at 20px 30px, #5eead4, rgba(0,0,0,0)),
-                radial-gradient(1.5px 1.5px at 100px 150px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 200px 300px, #14b8a6, rgba(0,0,0,0));
+                radial-gradient(1px 1px at 20px 30px, #5eead4, rgba(0,0,0,0)),
+                radial-gradient(1.5px 1.5px at 150px 250px, #fff, rgba(0,0,0,0));
             background-repeat: repeat;
-            background-size: 400px 400px;
-            opacity: 0.3;
-            animation: starDrift 60s linear infinite;
+            background-size: 500px 500px;
+            opacity: 0.2;
+            animation: drift 100s linear infinite;
         }
 
-        @keyframes starDrift {
+        @keyframes drift {
             from { transform: translateY(0); }
-            to { transform: translateY(-400px); }
+            to { transform: translateY(-500px); }
         }
 
-        /* --- GLASS INTERFACE --- */
-        .solar-container {
+        /* --- MAIN LAYOUT --- */
+        #root {
             width: 100%;
             height: 100vh;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0;
-        }
-
-        @media (min-width: 1024px) {
-            .solar-container { padding: 1.5rem; }
-        }
-
-        .glass-core {
-            background: rgba(8, 15, 15, 0.85);
-            backdrop-filter: blur(60px);
-            -webkit-backdrop-filter: blur(60px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            width: 100%;
-            height: 100%;
-            position: relative;
-            overflow: hidden;
-            display: flex;
             flex-direction: column;
-            box-shadow: 0 0 120px rgba(0, 0, 0, 0.9);
+            position: relative;
+            z-index: 1;
         }
 
-        @media (min-width: 1024px) {
-            .glass-core {
-                border-radius: 2.5rem;
-                max-width: 1300px;
-                max-height: 94vh;
-            }
-        }
-
-        /* --- BOOT ANIMATION --- */
-        #boot-seq {
+        /* --- BOOT SCREEN --- */
+        #boot-screen {
             position: fixed;
             inset: 0;
             background: #000;
@@ -121,51 +90,54 @@
             align-items: center;
             justify-content: center;
             font-family: 'JetBrains Mono', monospace;
-            transition: opacity 0.8s ease;
+            transition: opacity 1s ease;
         }
 
         .boot-text {
-            color: #10b981;
-            font-size: 0.7rem;
-            width: 280px;
-            margin-top: 2rem;
-            line-height: 1.5;
+            color: var(--accent);
+            font-size: 0.75rem;
+            width: 260px;
+            margin-top: 1.5rem;
+            line-height: 1.6;
         }
 
         .cursor {
             display: inline-block;
-            width: 7px;
+            width: 8px;
             height: 14px;
-            background: #10b981;
+            background: var(--accent);
             margin-left: 4px;
             animation: blink 0.8s infinite;
         }
 
         @keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
 
-        /* Custom UI Components */
-        .message-bubble {
-            animation: bubbleSlide 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        @keyframes bubbleSlide {
-            from { opacity: 0; transform: translateY(10px) scale(0.98); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
+        /* UI Enhancements */
+        .glass-panel {
+            background: rgba(8, 15, 15, 0.8);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-thumb { background: rgba(16, 185, 129, 0.2); border-radius: 10px; }
-        
+        .message-anim {
+            animation: slideIn 0.4s ease forwards;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         pre {
             background: rgba(0,0,0,0.5) !important;
-            padding: 1.2rem;
-            border-radius: 1rem;
-            border: 1px solid rgba(255,255,255,0.05);
-            margin: 1rem 0;
+            padding: 1rem;
+            border-radius: 0.75rem;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             overflow-x: auto;
+            border: 1px solid rgba(255,255,255,0.05);
         }
-        code { color: #2dd4bf; }
+        code { color: #5eead4; }
     </style>
 
     <script type="importmap">
@@ -179,41 +151,45 @@
   }
 }
 </script>
+    
+    <!-- FIX: Initialize process.env before React loads -->
+    <script>
+        window.process = { env: { API_KEY: "" } };
+    </script>
 <link rel="stylesheet" href="/index.css">
 </head>
 <body>
 
-    <div id="boot-seq">
+    <div id="boot-screen">
         <svg class="w-16 h-16 text-emerald-500 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
         </svg>
         <div class="boot-text">
-            <p id="t1">> NikiViti Solaris Core Initializing...</p>
-            <p id="t2" class="opacity-0">> Loading Neural Weights [v2.1.0]...</p>
-            <p id="t3" class="opacity-0">> Establishing Quantum Bridge...</p>
-            <p id="t4" class="opacity-0">> SYSTEM ONLINE <span class="cursor"></span></p>
+            <p id="t1">> Initializing Solaris Spectrum...</p>
+            <p id="t2" class="opacity-0">> Loading NikiViti AI Core v2.2...</p>
+            <p id="t3" class="opacity-0">> Mapping Quantum Nodes...</p>
+            <p id="t4" class="opacity-0">> UPLINK READY <span class="cursor"></span></p>
         </div>
     </div>
 
     <div class="nebula-bg"></div>
     <div class="star-field"></div>
 
-    <div class="solar-container">
-        <div id="root" class="glass-core"></div>
-    </div>
+    <div id="root"></div>
 
     <script>
-        // Boot sequence logic
-        setTimeout(() => document.getElementById('t2').classList.remove('opacity-0'), 400);
-        setTimeout(() => document.getElementById('t3').classList.remove('opacity-0'), 800);
-        setTimeout(() => document.getElementById('t4').classList.remove('opacity-0'), 1200);
+        // Boot animation
+        setTimeout(() => document.getElementById('t2').classList.remove('opacity-0'), 300);
+        setTimeout(() => document.getElementById('t3').classList.remove('opacity-0'), 600);
+        setTimeout(() => document.getElementById('t4').classList.remove('opacity-0'), 900);
         setTimeout(() => {
-            const boot = document.getElementById('boot-seq');
+            const boot = document.getElementById('boot-screen');
             boot.style.opacity = '0';
-            setTimeout(() => boot.style.display = 'none', 800);
-        }, 1800);
+            setTimeout(() => boot.style.display = 'none', 1000);
+        }, 1500);
     </script>
 
+    <!-- Main Entry point -->
     <script type="text/babel" data-type="module" data-presets="typescript,react" src="./index.tsx"></script>
 <script type="module" src="/index.tsx"></script>
 </body>
