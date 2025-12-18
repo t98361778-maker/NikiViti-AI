@@ -4,99 +4,235 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>NikiViti Solaris Spectrum</title>
-    <!-- Tailwind for rapid, beautiful UI -->
+    <title>NikiViti Solaris Spectrum OS</title>
+    
+    <!-- 
+      SYSTEM ARCHITECTURE: NikiViti Solaris Spectrum
+      VERSION: 2.0.4 "Emerald Nebula"
+      DEVELOPER: NikiViti AI Core
+      DESCRIPTION: A high-performance, low-latency neural interface featuring 
+      tri-modal intelligence switching and quantum-themed aesthetic processing.
+    -->
+
+    <!-- Core Dependencies -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Babel standalone to allow TSX files to run directly on GitHub Pages without a build step -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
-        body, html {
+        /* 
+           QUANTUM CSS CORE 
+           Defining the visual language of the Solaris environment.
+        */
+        :root {
+            --primary-glow: rgba(20, 184, 166, 0.4);
+            --secondary-glow: rgba(6, 182, 212, 0.4);
+            --emerald-deep: #064e3b;
+            --teal-void: #0d1e1c;
+            --background-black: #010409;
+        }
+
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body, html {
             height: 100%;
             width: 100%;
-            font-family: 'Inter', sans-serif;
-            background: #010409;
-            overflow: hidden;
+            background-color: var(--background-black);
+            font-family: 'Inter', -apple-system, sans-serif;
             color: #f8fafc;
+            overflow: hidden;
+            cursor: default;
         }
-        
-        /* Deep Blue-Green Nebula Background */
-        .nebula {
+
+        /* --- THE NEBULA ENGINE --- */
+        .nebula-canvas {
             position: fixed;
             inset: -50%;
             width: 200%;
             height: 200%;
+            z-index: -10;
             background: 
-                radial-gradient(circle at 15% 25%, rgba(13, 148, 136, 0.25) 0%, transparent 45%),
-                radial-gradient(circle at 85% 35%, rgba(5, 150, 105, 0.2) 0%, transparent 45%),
-                radial-gradient(circle at 50% 85%, rgba(6, 182, 212, 0.25) 0%, transparent 45%),
-                radial-gradient(circle at 50% 50%, rgba(2, 6, 23, 1) 0%, #000 100%);
-            z-index: -2;
-            animation: nebulaRotate 140s linear infinite;
+                radial-gradient(circle at 10% 20%, rgba(13, 148, 136, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 90% 30%, rgba(5, 150, 105, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 40% 80%, rgba(8, 145, 178, 0.2) 0%, transparent 45%),
+                radial-gradient(circle at 60% 50%, rgba(2, 6, 23, 1) 0%, #000 100%);
+            animation: nebulaDrift 180s linear infinite;
         }
 
-        /* Floating Quantum Particles */
-        .particles {
+        @keyframes nebulaDrift {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        /* --- QUANTUM PARTICLES --- */
+        .quantum-field {
             position: fixed;
             inset: 0;
-            z-index: -1;
+            z-index: -5;
+            pointer-events: none;
             background-image: 
-                radial-gradient(1.2px 1.2px at 30px 40px, #5eead4, rgba(0,0,0,0)),
-                radial-gradient(1.8px 1.8px at 120px 180px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 220px 280px, #2dd4bf, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 350px 400px, #fff, rgba(0,0,0,0));
+                radial-gradient(1px 1px at 15% 15%, #5eead4, rgba(0,0,0,0)),
+                radial-gradient(1.5px 1.5px at 85% 25%, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 50% 50%, #2dd4bf, rgba(0,0,0,0)),
+                radial-gradient(1.2px 1.2px at 30% 75%, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 70% 85%, #14b8a6, rgba(0,0,0,0));
             background-repeat: repeat;
-            background-size: 500px 500px;
-            opacity: 0.25;
-            animation: drift 45s linear infinite;
+            background-size: 600px 600px;
+            opacity: 0.3;
+            animation: fieldPulse 40s ease-in-out infinite alternate;
         }
 
-        @keyframes drift {
-            from { transform: translateY(0) rotate(0deg); }
-            to { transform: translateY(-500px) rotate(5deg); }
+        @keyframes fieldPulse {
+            0% { transform: translateY(0) scale(1); opacity: 0.2; }
+            50% { transform: translateY(-30px) scale(1.05); opacity: 0.4; }
+            100% { transform: translateY(0) scale(1); opacity: 0.2; }
         }
 
-        @keyframes nebulaRotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .glass-shell {
-            background: rgba(8, 15, 20, 0.88);
-            backdrop-filter: blur(50px);
-            -webkit-backdrop-filter: blur(50px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            position: relative;
-            display: flex;
-            flex-direction: column;
+        /* --- THE GLASS SHELL --- */
+        .app-container {
             width: 100%;
             height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            padding: 0;
         }
 
-        .glass-shell::before {
+        @media (min-width: 1024px) {
+            .app-container {
+                padding: 1.5rem;
+            }
+        }
+
+        .glass-chassis {
+            background: rgba(10, 25, 25, 0.85);
+            backdrop-filter: blur(80px);
+            -webkit-backdrop-filter: blur(80px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 100px rgba(0, 0, 0, 0.8);
+        }
+
+        @media (min-width: 1024px) {
+            .glass-chassis {
+                border-radius: 3rem;
+                max-width: 1200px;
+                max-height: 95vh;
+            }
+        }
+
+        /* --- BOOT SEQUENCE EFFECTS --- */
+        #boot-screen {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            transition: opacity 1s ease, visibility 1s;
+        }
+
+        .boot-log {
+            width: 300px;
+            color: #14b8a6;
+            font-size: 0.75rem;
+            margin-top: 2rem;
+            opacity: 0.7;
+        }
+
+        .boot-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background: #14b8a6;
+            margin-left: 5px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink { 
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+
+        /* --- CUSTOM SCROLLBAR --- */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { 
+            background: rgba(45, 212, 191, 0.2); 
+            border-radius: 10px; 
+            transition: background 0.3s;
+        }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(45, 212, 191, 0.4); }
+
+        /* --- INTERACTIVE ANIMATIONS --- */
+        .hover-lift { transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .hover-lift:hover { transform: translateY(-2px); }
+        
+        .active-pulse { animation: activePulse 2s infinite; }
+        @keyframes activePulse {
+            0% { box-shadow: 0 0 0 0 rgba(20, 184, 166, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(20, 184, 166, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(20, 184, 166, 0); }
+        }
+
+        /* Code Block Enhancements */
+        pre {
+            background: rgba(0,0,0,0.4) !important;
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 1rem;
+            border-radius: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            color: #d1d5db;
+        }
+
+        code { color: #5eead4; }
+
+        /* Navigation Links Style */
+        .solar-link {
+            color: rgba(94, 234, 212, 0.6);
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+        }
+        .solar-link:hover {
+            color: #5eead4;
+            text-shadow: 0 0 8px rgba(94, 234, 212, 0.5);
+        }
+        .solar-link::after {
             content: '';
             position: absolute;
-            inset: 0;
-            padding: 1px;
-            border-radius: inherit;
-            background: linear-gradient(135deg, rgba(20, 184, 166, 0.3), rgba(6, 182, 212, 0.3), rgba(5, 150, 105, 0.3));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask-composite: exclude;
-            pointer-events: none;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #5eead4;
+            transition: width 0.3s;
         }
+        .solar-link:hover::after { width: 100%; }
 
-        ::-webkit-scrollbar { width: 3px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(94, 234, 212, 0.3); border-radius: 10px; }
-        
-        @keyframes messageAppear {
-            0% { opacity: 0; transform: translateY(15px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-        .animate-message { animation: messageAppear 0.5s ease forwards; }
     </style>
+
+    <!-- Import Map for ESM Modules -->
     <script type="importmap">
 {
   "imports": {
@@ -111,12 +247,64 @@
 <link rel="stylesheet" href="/index.css">
 </head>
 <body>
-    <div class="nebula"></div>
-    <div class="particles"></div>
-    <div id="root" class="w-full h-screen overflow-hidden"></div>
-    
-    <!-- Using script type="text/babel" and src="./index.tsx" relative to ensure GitHub Pages finds it correctly -->
+
+    <!-- BOOT SEQUENCE SIMULATOR -->
+    <div id="boot-screen">
+        <div class="flex flex-col items-center">
+            <svg class="w-20 h-20 text-teal-500 animate-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.048 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 0 0 .495-7.467 5.99 5.99 0 0 0-1.925 3.546 5.974 5.974 0 0 1-2.133-1A3.75 3.75 0 0 0 12 18Z" />
+            </svg>
+            <h1 class="mt-6 text-2xl font-black text-white tracking-[0.4em] uppercase">Solaris</h1>
+            <div class="boot-log">
+                <p id="boot-text-1">> Initializing Solaris Kernel...</p>
+                <p id="boot-text-2" class="mt-1 opacity-0">> Loading NikiViti Neural Weights...</p>
+                <p id="boot-text-3" class="mt-1 opacity-0">> Establishing Quantum Tunnel...</p>
+                <p id="boot-text-4" class="mt-1 opacity-0">> Spectrum OS v2.0 READY<span class="boot-cursor"></span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- BACKGROUND COMPONENTS -->
+    <div class="nebula-canvas"></div>
+    <div class="quantum-field"></div>
+
+    <!-- MAIN APP SHELL -->
+    <div class="app-container">
+        <div id="root" class="glass-chassis">
+            <!-- React will mount the App.tsx component here -->
+        </div>
+    </div>
+
+    <!-- FOOTER INFO / INTERACTIVE ELEMENTS -->
+    <div class="fixed bottom-4 right-8 z-50 flex gap-6 text-[10px] font-black uppercase tracking-[0.2em] opacity-40 hover:opacity-100 transition-opacity">
+        <a href="https://github.com/nikiviti" target="_blank" class="solar-link">GitHub</a>
+        <a href="#" class="solar-link">NikiViti v2.0</a>
+        <span class="text-teal-500">Node Status: Online</span>
+    </div>
+
+    <!-- STARTUP LOGIC -->
+    <script>
+        // Simulation of a boot sequence for better immersion
+        setTimeout(() => document.getElementById('boot-text-2').style.opacity = '1', 400);
+        setTimeout(() => document.getElementById('boot-text-3').style.opacity = '1', 800);
+        setTimeout(() => document.getElementById('boot-text-4').style.opacity = '1', 1200);
+        setTimeout(() => {
+            const boot = document.getElementById('boot-screen');
+            boot.style.opacity = '0';
+            setTimeout(() => boot.style.visibility = 'hidden', 1000);
+        }, 1800);
+    </script>
+
+    <!-- MAIN APPLICATION ENTRY -->
     <script type="text/babel" data-type="module" data-presets="typescript,react" src="./index.tsx"></script>
+
+    <!-- 
+      DEVELOPER NOTE:
+      This interface is designed to bridge the gap between human linguistics 
+      and neural processing. Every animation is synchronized to provide a 
+      sense of fluidity and depth. Welcome to the Solaris Spectrum.
+    -->
 <script type="module" src="/index.tsx"></script>
 </body>
 </html>

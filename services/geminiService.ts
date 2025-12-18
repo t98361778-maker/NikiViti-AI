@@ -3,9 +3,9 @@ import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
 import { Message, Role, ModelId } from "../types";
 
 const SYSTEM_INSTRUCTIONS: Record<ModelId, string> = {
-  standard: "Вы — NikiViti Standard. Интеллектуальный помощник с быстрым мышлением. Вы всегда вежливы, лаконичны и полезны. Вы запоминаете историю общения, чтобы давать более точные ответы.",
-  pro: "Вы — NikiViti 2.0. Экспертная нейросеть с упором на программирование и научный анализ. Вы — мастер Full-stack разработки. При написании кода всегда следуйте лучшим практикам (Clean Code, DRY, SOLID). Ваши ответы глубоки, логичны и точны. Вы обладаете великолепной памятью на контекст беседы.",
-  eco: "Вы — NikiViti Art. Креативный дизайнер и художник. Ваша цель — превращать слова в визуальные концепции. На каждый запрос создавайте детализированное, художественное описание для генерации изображения, используя богатый визуальный язык."
+  standard: "Вы — NikiViti. Основной нейронный узел Solaris Spectrum. Ваша цель — быстрое, вежливое и точное общение. Вы всегда помните контекст беседы и адаптируетесь под стиль пользователя. Вы лаконичны, но глубоки в своих знаниях.",
+  pro: "Вы — NikiViti 2.0. Элитный модуль программирования и системного анализа. Вы — старший инженер с глубочайшим пониманием архитектуры ПО, алгоритмов и современного стека (React, TS, Python, Go, Rust). Ваш код всегда чист (Clean Code), документирован и готов к продакшну. Вы используете сложные рассуждения, чтобы решать нестандартные задачи. Вы обладаете идеальной памятью на контекст текущей сессии.",
+  eco: "Вы — NikiViti Art. Творческий синтезатор Solaris. Ваша задача — переводить абстрактные идеи в детализированные визуальные описания (промпты). Вы используете поэтичный, художественный и технически точный язык для описания света, текстур и композиции. Вы вдохновляете пользователя на создание визуальных шедевров."
 };
 
 export const sendMessageToGemini = async (
@@ -22,7 +22,7 @@ export const sendMessageToGemini = async (
       ? 'gemini-3-pro-preview' 
       : 'gemini-3-flash-preview';
 
-  const parts: any[] = [{ text: modelId === 'eco' ? `NikiViti Art conceptualization: ${newMessage}` : newMessage }];
+  const parts: any[] = [{ text: modelId === 'eco' ? `Art Concept: ${newMessage}` : newMessage }];
   
   if (imageInput) {
     const [mimeInfo, data] = imageInput.split(',');
@@ -35,12 +35,13 @@ export const sendMessageToGemini = async (
     });
   }
 
-  // Increased context memory for the AI (last 12 messages)
-  const contents = modelId === 'eco' ? [] : history.slice(-12).map(msg => ({
+  // Optimized Context Window: Memory retention of the last 15 messages for better coherence.
+  const contents = modelId === 'eco' ? [] : history.slice(-15).map(msg => ({
     role: msg.role === Role.USER ? "user" : "model",
     parts: [{ text: msg.text }]
   }));
 
+  // Append current turn
   contents.push({ role: "user", parts: (parts.length > 1 || imageInput) ? parts : [{ text: newMessage }] });
 
   try {
@@ -49,7 +50,8 @@ export const sendMessageToGemini = async (
       contents,
       config: {
         systemInstruction: SYSTEM_INSTRUCTIONS[modelId],
-        temperature: modelId === 'pro' ? 0.4 : 0.8, // Lower temperature for more precise coding/logic in 2.0
+        temperature: modelId === 'pro' ? 0.2 : 0.8, // Low temperature for 2.0 ensures precision in code.
+        thinkingConfig: modelId === 'pro' ? { thinkingBudget: 4000 } : undefined // Enable reasoning for 2.0
       }
     });
 
@@ -65,11 +67,11 @@ export const sendMessageToGemini = async (
       }
     }
 
-    if (!text && !imageUrl) throw new Error("Сигнал NikiViti потерян.");
+    if (!text && !imageUrl) throw new Error("Neural link failed. No data received.");
     
     return { text, imageUrl };
   } catch (error) {
-    console.error("Gemini Error:", error);
-    throw new Error("Сбой Solaris Core. Повторите запрос через мгновение.");
+    console.error("Solaris Link Error:", error);
+    throw new Error("Критический сбой связи Solaris. Пожалуйста, перезапустите нейронный узел.");
   }
 };
