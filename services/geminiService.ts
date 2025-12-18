@@ -3,9 +3,9 @@ import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
 import { Message, Role, ModelId } from "../types";
 
 const SYSTEM_INSTRUCTIONS: Record<ModelId, string> = {
-  standard: "Вы NikiViti Standard Solaris. Умная, разумная нейросеть с чувством стиля. Вы отлично пишете код и даете глубокие ответы.",
-  pro: "Вы NikiViti Pro Solaris. Самый мощный интеллект в линейке. Выдаете идеальный код и мгновенные решения. Вы - мастер логики.",
-  eco: "Вы NikiViti Art Solaris. Художник и дизайнер. Ваша задача - только генерировать визуальные шедевры. На любой запрос создавайте детальное описание арта."
+  standard: "Вы — NikiViti Standard. Интеллектуальный помощник с быстрым мышлением. Вы всегда вежливы, лаконичны и полезны. Вы запоминаете историю общения, чтобы давать более точные ответы.",
+  pro: "Вы — NikiViti 2.0. Экспертная нейросеть с упором на программирование и научный анализ. Вы — мастер Full-stack разработки. При написании кода всегда следуйте лучшим практикам (Clean Code, DRY, SOLID). Ваши ответы глубоки, логичны и точны. Вы обладаете великолепной памятью на контекст беседы.",
+  eco: "Вы — NikiViti Art. Креативный дизайнер и художник. Ваша цель — превращать слова в визуальные концепции. На каждый запрос создавайте детализированное, художественное описание для генерации изображения, используя богатый визуальный язык."
 };
 
 export const sendMessageToGemini = async (
@@ -19,27 +19,29 @@ export const sendMessageToGemini = async (
   const modelName = modelId === 'eco' 
     ? 'gemini-2.5-flash-image' 
     : modelId === 'pro' 
-      ? 'gemini-3-flash-preview' 
-      : 'gemini-3-pro-preview';
+      ? 'gemini-3-pro-preview' 
+      : 'gemini-3-flash-preview';
 
-  const parts: any[] = [{ text: modelId === 'eco' ? `NikiViti Art visualization: ${newMessage}` : newMessage }];
+  const parts: any[] = [{ text: modelId === 'eco' ? `NikiViti Art conceptualization: ${newMessage}` : newMessage }];
   
   if (imageInput) {
-    const [mime, data] = imageInput.split(',');
+    const [mimeInfo, data] = imageInput.split(',');
+    const mimeType = mimeInfo.match(/:(.*?);/)?.[1] || 'image/png';
     parts.unshift({
       inlineData: {
-        mimeType: mime.split(':')[1].split(';')[0],
+        mimeType: mimeType,
         data: data
       }
     });
   }
 
-  const contents = modelId === 'eco' ? [] : history.slice(-8).map(msg => ({
+  // Increased context memory for the AI (last 12 messages)
+  const contents = modelId === 'eco' ? [] : history.slice(-12).map(msg => ({
     role: msg.role === Role.USER ? "user" : "model",
     parts: [{ text: msg.text }]
   }));
 
-  contents.push({ role: "user", parts });
+  contents.push({ role: "user", parts: (parts.length > 1 || imageInput) ? parts : [{ text: newMessage }] });
 
   try {
     const response: GenerateContentResponse = await ai.models.generateContent({
@@ -47,7 +49,7 @@ export const sendMessageToGemini = async (
       contents,
       config: {
         systemInstruction: SYSTEM_INSTRUCTIONS[modelId],
-        temperature: 0.8,
+        temperature: modelId === 'pro' ? 0.4 : 0.8, // Lower temperature for more precise coding/logic in 2.0
       }
     });
 
@@ -63,11 +65,11 @@ export const sendMessageToGemini = async (
       }
     }
 
-    if (!text && !imageUrl) throw new Error("Система NikiViti не смогла обработать сигнал.");
+    if (!text && !imageUrl) throw new Error("Сигнал NikiViti потерян.");
     
     return { text, imageUrl };
   } catch (error) {
-    console.error(error);
-    throw new Error("Ошибка Solaris Core. Попробуйте отправить запрос снова.");
+    console.error("Gemini Error:", error);
+    throw new Error("Сбой Solaris Core. Повторите запрос через мгновение.");
   }
 };

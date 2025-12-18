@@ -12,11 +12,11 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message, modelId }) =>
   const [isSpeaking, setIsSpeaking] = useState(false);
 
   const getTheme = () => {
-    if (isUser) return 'bg-white/5 border-white/10 text-white shadow-xl';
+    if (isUser) return 'bg-white/[0.04] border-white/10 text-white shadow-lg ml-auto';
     switch (modelId) {
-      case 'pro': return 'bg-teal-600/10 border-teal-500/30 text-teal-50 shadow-[0_0_30px_rgba(20,184,166,0.15)]';
-      case 'eco': return 'bg-cyan-600/10 border-cyan-500/30 text-cyan-50 shadow-[0_0_30px_rgba(6,182,212,0.15)]';
-      default: return 'bg-emerald-600/10 border-emerald-500/30 text-emerald-50 shadow-[0_0_30px_rgba(16,185,129,0.15)]';
+      case 'pro': return 'bg-teal-500/10 border-teal-500/20 text-teal-50 shadow-teal-500/5';
+      case 'eco': return 'bg-cyan-500/10 border-cyan-500/20 text-cyan-50 shadow-cyan-500/5';
+      default: return 'bg-emerald-500/10 border-emerald-500/20 text-emerald-50 shadow-emerald-500/5';
     }
   };
 
@@ -43,32 +43,32 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message, modelId }) =>
   };
 
   return (
-    <div className={`flex w-full mb-10 ${isUser ? 'justify-end' : 'justify-start'} animate-slideUp`}>
+    <div className={`flex w-full mb-8 ${isUser ? 'justify-end' : 'justify-start'} animate-message`}>
       <div
-        className={`relative max-w-[85%] md:max-w-[75%] px-7 py-5 rounded-[2rem] transition-all border ${getTheme()} ${isUser ? 'rounded-tr-none' : 'rounded-tl-none'}`}
+        className={`relative max-w-[90%] md:max-w-[80%] px-6 py-5 rounded-[1.8rem] transition-all border ${getTheme()} ${isUser ? 'rounded-tr-none' : 'rounded-tl-none'}`}
       >
         {message.inputImageUrl && (
-          <div className="mb-4 rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
-             <img src={message.inputImageUrl} alt="Input" className="w-full opacity-90" />
+          <div className="mb-5 rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+             <img src={message.inputImageUrl} alt="Input" className="w-full h-auto max-h-96 object-contain opacity-95 bg-black/40" />
           </div>
         )}
 
         {message.imageUrl && (
-          <div className="mb-4 rounded-2xl overflow-hidden shadow-2xl border border-white/5 group">
-            <img src={message.imageUrl} alt="Art" className="w-full h-auto transition-transform duration-700 group-hover:scale-105" />
+          <div className="mb-5 rounded-2xl overflow-hidden shadow-2xl border border-white/5 group bg-black/40 p-1">
+            <img src={message.imageUrl} alt="Generated Art" className="w-full h-auto rounded-xl transition-transform duration-1000 group-hover:scale-[1.02]" />
           </div>
         )}
         
-        <div className="flex items-start gap-4">
-          <p className="flex-1 text-[16px] leading-[1.6] font-medium tracking-tight whitespace-pre-wrap">
+        <div className="flex items-start gap-5">
+          <div className="flex-1 text-[15px] leading-[1.65] font-medium tracking-tight whitespace-pre-wrap selection:bg-teal-500/30">
             {message.text}
-          </p>
+          </div>
           
           {!isUser && message.text && (
             <button 
               onClick={toggleSpeech}
-              className={`flex-shrink-0 p-2.5 rounded-full transition-all ${
-                isSpeaking ? 'bg-white text-black' : 'bg-white/5 text-white/20 hover:bg-white/10 hover:text-white'
+              className={`flex-shrink-0 p-2.5 rounded-full transition-all duration-300 ${
+                isSpeaking ? 'bg-white text-black scale-110 shadow-lg' : 'bg-white/5 text-white/20 hover:bg-white/10 hover:text-white'
               }`}
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -78,8 +78,10 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message, modelId }) =>
           )}
         </div>
 
-        <div className={`text-[9px] mt-4 font-black tracking-[0.2em] uppercase ${getAccent()}`}>
-          {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} • {isUser ? 'USER' : 'NikiViti'}
+        <div className={`text-[8px] mt-4 font-black tracking-[0.25em] uppercase flex items-center gap-2 ${getAccent()}`}>
+           <span>{isUser ? 'CLIENT' : 'NIKIVITI CORE'}</span>
+           <span className="opacity-40">•</span>
+           <span>{message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
         </div>
       </div>
     </div>
