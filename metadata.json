@@ -1,0 +1,5 @@
+{
+  "name": "Gemini Minimalist Chat",
+  "description": "A clean, responsive AI chat interface built with React and the Gemini API, featuring message history, typing indicators, and mobile-friendly design.",
+  "requestFramePermissions": []
+}
